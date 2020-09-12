@@ -44,6 +44,7 @@ def test_sanity():
         "---|---|---"
         "777|888|999"
         "777|888|999"
+        "777|888|999"
     )
 
     assert board_to_string(board, "x") == (
