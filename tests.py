@@ -1,6 +1,4 @@
-import pytest
-
-from board.sudoku import *
+from sudoku.sudoku import *
 
 
 def test_sanity():
