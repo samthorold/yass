@@ -55,12 +55,12 @@ def legal_board(b):
 def board_to_string(b, k="val"):
     s = ""
     for c in b.values():
-        x = int(c["x"]) - 1
-        y = int(c["y"]) - 1
+        x = int(c["x"])
+        y = int(c["y"])
+        s += str(c[k])
         if x in [3, 6]:
             s += "|"
-        s += str(c[k])
-        if x == 8:
+        if x == 9:
             s += "\n"
             if y in [3, 6]:
                 s += "---|---|---\n"
