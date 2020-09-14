@@ -11,6 +11,7 @@ def new_board():
             "x": x + 1,
             "y": y + 1,
             "box": 1 + x // 3 + (y // 3) * 3,
+            "options": "123456789",
         }
         for y in range(9)
         for x in range(9)
@@ -40,6 +41,21 @@ def get_neighbours(t, b):
     return neighbours
 
 
+def prune_options(t, b, set_one=True):
+    target = b[t]
+    if target["val"] in "123456789":
+        return target["val"], []
+    neighbours = get_neighbours(t, b)
+    causes = list()
+    for k in neighbours:
+        if b[k]["val"] in target["options"]:
+            target["options"] = target["options"].replace(b[k]["val"], "")
+            causes.append((k, b[k]["val"]))
+    if set_one and len(target["options"])==1:
+        target["val"] = target["options"]
+    return target["options"], causes
+
+
 def legal_board(b):
     for k, c in b.items():
         if c["val"] == ".":
@@ -50,6 +66,10 @@ def legal_board(b):
                 warnings.warn(f"[{k}: {c['val']}] = [{n}: {b[n]['val']}]")
                 return False
     return True
+
+
+def completed_board(b):
+    return all([b[k]["val"] in "123456789" for k in b]) and legal_board(b)
 
 
 def board_to_string(b, k="val"):
@@ -82,27 +102,53 @@ def main():
         "... ... 1.."
     )
 
+    s = (
+        ".2. 6.4 3.7"
+        ".4. ... 1.."
+        "8.7 .5. ..."
+        ".7. .9. .61"
+        "6.. 5.2 ..4"
+        "59. .7. .3."
+        "... .2. 4.3"
+        "..2 ... .8."
+        "4.9 8.3 .2."
+    )
+
     board = parse_board_string(s)
+    print(legal_board(board))
 
-    pprint(board, sort_dicts=False)
+    #pprint(board, sort_dicts=False)
 
     print()
     print(board_to_string(board))
-    print()
-    print(board_to_string(board, "box"))
-    print()
-    print(board_to_string(board, "x"))
-    print()
-    print(board_to_string(board, "y"))
-    print()
-    print(legal_board(board))
+    #print()
+    #print(board_to_string(board, "box"))
+    #print()
+    #print(board_to_string(board, "x"))
+    #print()
+    #print(board_to_string(board, "y"))
+    #print()
+    #print(legal_board(board))
 
-    board["11"]["val"] = "4"
-    print()
-    print(board_to_string(board))
-    print()
-    print(legal_board(board))
+    #board["11"]["val"] = "4"
+    #print()
+    #print(board_to_string(board))
+    #print()
+    #print(legal_board(board))
 
+    #pprint(prune_options("11", board))
+
+
+    for i in range(20):
+        if i>100 or completed_board(board):
+            break
+        print(f"\n{i+1}\n---")
+        for y in range(1, 10):
+            for x in range(1, 10):
+                k = f"{x}{y}"
+                prune_options(k, board)
+        print(board_to_string(board))
+        print(legal_board(board))
 
 if __name__ == "__main__":
     main()
