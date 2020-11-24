@@ -9,7 +9,7 @@ setuptools.setup(
     version="0.1.0",
     author="Sam Thorold",
     author_email="sam.thorold@gmail.com",
-    description="Yet Another Sudoke Solver",
+    description="Yet Another Sudoku Solver",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
