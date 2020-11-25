@@ -15,3 +15,7 @@ def get_string(url="http://nine.websudoku.com/?level=1"):
         for cell in row.find_all("td"):
             string += list(cell.children)[0].get("value", ".")
     return string
+
+
+if __name__ == "__main__":
+    print(get_string())
