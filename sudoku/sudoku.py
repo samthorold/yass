@@ -51,7 +51,7 @@ def prune_options(t, b, set_one=True):
         if b[k]["val"] in target["options"]:
             target["options"] = target["options"].replace(b[k]["val"], "")
             causes.append((k, b[k]["val"]))
-    if set_one and len(target["options"])==1:
+    if set_one and len(target["options"]) == 1:
         target["val"] = target["options"]
     return target["options"], causes
 
@@ -133,30 +133,29 @@ def main():
     board = parse_board_string(s)
     print(legal_board(board))
 
-    #pprint(board, sort_dicts=False)
+    # pprint(board, sort_dicts=False)
 
     print()
     print(board_to_string(board))
-    #print()
-    #print(board_to_string(board, "box"))
-    #print()
-    #print(board_to_string(board, "x"))
-    #print()
-    #print(board_to_string(board, "y"))
-    #print()
-    #print(legal_board(board))
+    # print()
+    # print(board_to_string(board, "box"))
+    # print()
+    # print(board_to_string(board, "x"))
+    # print()
+    # print(board_to_string(board, "y"))
+    # print()
+    # print(legal_board(board))
 
-    #board["11"]["val"] = "4"
-    #print()
-    #print(board_to_string(board))
-    #print()
-    #print(legal_board(board))
+    # board["11"]["val"] = "4"
+    # print()
+    # print(board_to_string(board))
+    # print()
+    # print(legal_board(board))
 
-    #pprint(prune_options("11", board))
-
+    # pprint(prune_options("11", board))
 
     for i in range(20):
-        if i>100 or completed_board(board):
+        if i > 100 or completed_board(board):
             break
         print(f"\n{i+1}\n---")
         for y in range(1, 10):
@@ -165,6 +164,7 @@ def main():
                 prune_options(k, board)
         print(board_to_string(board))
         print(legal_board(board))
+
 
 if __name__ == "__main__":
     main()
